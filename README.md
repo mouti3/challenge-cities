@@ -13,6 +13,7 @@ Monorepo containing a NestJS backend and an Angular frontend.
 cd backend
 npm install
 npm run start:dev
+npm run openapi:generate:frontend
 ```
 
 ## Frontend

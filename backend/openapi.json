@@ -1,0 +1,127 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/cities": {
+      "get": {
+        "description": "Returns a paginated list of cities",
+        "operationId": "getAllCities",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of cities retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while retrieving cities"
+          }
+        },
+        "summary": "Get all cities",
+        "tags": [
+          "cities"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Cities Management API",
+    "description": "API for managing cities",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "City": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Berlin",
+            "description": "The name of the city"
+          },
+          "name_native": {
+            "type": "string",
+            "example": "Berlin",
+            "description": "The native name of the city"
+          },
+          "country": {
+            "type": "string",
+            "example": "Germany",
+            "description": "The country where the city is located"
+          },
+          "continent": {
+            "type": "string",
+            "example": "Europe",
+            "description": "The continent where the city is located"
+          },
+          "latitude": {
+            "type": "number",
+            "example": 52.52,
+            "description": "The latitude of the city"
+          },
+          "longitude": {
+            "type": "number",
+            "example": 13.405,
+            "description": "The longitude of the city"
+          },
+          "population": {
+            "type": "number",
+            "example": 3669491,
+            "description": "The population of the city"
+          },
+          "founded": {
+            "type": "number",
+            "example": 1237,
+            "description": "The year the city was founded"
+          },
+          "landmarks": {
+            "example": [
+              "Brandenburg Gate",
+              "Berlin Wall"
+            ],
+            "description": "Famous landmarks in the city",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "name_native",
+          "country",
+          "continent",
+          "latitude",
+          "longitude",
+          "population",
+          "founded",
+          "landmarks"
+        ]
+      }
+    }
+  }
+}
