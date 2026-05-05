@@ -9,8 +9,12 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/cities-api-response-message.ts
+model/cities-api-response.ts
+model/cities-response-data.ts
 model/city.ts
 model/models.ts
+model/pagination-meta.ts
 param.ts
 provide-api.ts
 query.params.ts
