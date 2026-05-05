@@ -16,7 +16,7 @@ export class PaginationMeta {
 
 export class APIResponse<T> {
   success!: boolean;
-  data: { pagination: PaginationMeta; items: T } | null = null;
+  data!: { pagination: PaginationMeta; items: T } | null;
   error: any;
   message!: string | string[];
 }
