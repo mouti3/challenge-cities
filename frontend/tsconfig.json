@@ -16,7 +16,10 @@
     "module": "preserve",
     "baseUrl": "src",
     "paths": {
-      "@feature/*": ["app/_features/*"]
+      "@api/*": ["app/api/*"],
+      "@env/*": ["environments/*"],
+      "@feature/*": ["app/_features/*"],
+      "@shared/*": ["app/_shared/*"],
     }
   },
   "angularCompilerOptions": {

@@ -1,0 +1,41 @@
+<div class="card">
+  <p-table
+    [value]="data()"
+    [paginator]="!!pagination()"
+    [rows]="pagination()?.pageSize ?? 10"
+    [lazy]="true"
+    [first]="pagination()?.pageNumber ?? 0"
+    [totalRecords]="pagination()?.total ?? data().length"
+    [showCurrentPageReport]="!!pagination()?.total"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [currentPageReportTemplate]="pageReport()"
+    (onPage)="onPage($event)"
+    [rowsPerPageOptions]="rowsPerPageOptions()"
+    [dataKey]="dataKey()"
+    selectionMode="single"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        @for (col of columns(); track col.field) {
+          <th [style.width]="col.width">{{ col.header }}</th>
+        }
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+      <tr [pSelectableRow]="row">
+        @for (col of columns(); track col.field) {
+          <td>{{ row[col.field] ?? '' }}</td>
+        }
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="columns().length" class="text-center text-muted py-4">
+          No data available
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

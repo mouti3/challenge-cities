@@ -1,0 +1,5 @@
+.card {
+  padding: 1rem;
+  background: var(--p-content-background, #fff);
+  border-radius: 0.5rem;
+}
