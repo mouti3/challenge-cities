@@ -5,7 +5,7 @@
     <otto-spinner ariaLabel="Loading cities" size="60px" />
   } @else {
     <otto-data-view
-      [data]="pagedCities()"
+      [data]="cities()"
       [columns]="columns"
       [pagination]="pagination()"
       itemLabel="cities"

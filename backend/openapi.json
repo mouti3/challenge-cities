@@ -19,20 +19,46 @@
       "get": {
         "description": "Returns a paginated list of cities",
         "operationId": "getAllCities",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-based)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of cities retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/City"
-                  }
+                  "$ref": "#/components/schemas/CitiesApiResponse"
                 }
               }
             }
+          },
+          "400": {
+            "description": "Invalid query parameters"
           },
           "500": {
             "description": "An error occurred while retrieving cities"
@@ -120,6 +146,97 @@
           "population",
           "founded",
           "landmarks"
+        ]
+      },
+      "PaginationMeta": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number",
+            "example": 1,
+            "description": "Current page (1-based)"
+          },
+          "limit": {
+            "type": "number",
+            "example": 10,
+            "description": "Number of items per page"
+          },
+          "totalPages": {
+            "type": "number",
+            "example": 5,
+            "description": "Total number of pages"
+          },
+          "totalItems": {
+            "type": "number",
+            "example": 42,
+            "description": "Total number of items"
+          }
+        },
+        "required": [
+          "page",
+          "limit",
+          "totalPages",
+          "totalItems"
+        ]
+      },
+      "CitiesResponseData": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "description": "Cities for the current page",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/City"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          }
+        },
+        "required": [
+          "items",
+          "pagination"
+        ]
+      },
+      "CitiesApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CitiesResponseData"
+              }
+            ]
+          },
+          "error": {
+            "type": "object",
+            "nullable": true
+          },
+          "message": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "example": "Cities retrieved successfully"
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "message"
         ]
       }
     }

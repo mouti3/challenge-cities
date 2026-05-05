@@ -1,7 +1,8 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { CitiesService } from './cities.service';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { City } from './entities/city.entity';
+import { CitiesApiResponse } from './dto/city-response.dto';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @ApiTags('cities')
 @Controller('cities')
@@ -16,14 +17,18 @@ export class CitiesController {
   @ApiResponse({
     status: 200,
     description: 'List of cities retrieved successfully',
-    type: [City],
+    type: CitiesApiResponse,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid query parameters',
   })
   @ApiResponse({
     status: 500,
     description: 'An error occurred while retrieving cities',
   })
   @Get()
-  findAll() {
-    return this.citiesService.getAllCities();
+  findAll(@Query() query: PaginationQueryDto) {
+    return this.citiesService.getAllCities(query.page, query.limit);
   }
 }
